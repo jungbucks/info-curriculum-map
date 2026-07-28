@@ -1,0 +1,7 @@
+{
+  "_note": "결손 판정 결과. 화면3에서 자동 생성(재계산 가능). 논문 방법론 절의 원자료.",
+  "_schema": { "lane": "영역/레인명", "from_level": 1, "to_level": 2, "gap_type": "by_design|stagnant|naming_mismatch", "evidence": "판정 근거 문자열", "params": "판정 당시 임계값 스냅샷" },
+  "threshold": { "naming_overlap": 0.2 },
+  "generated_at": null,
+  "gaps": []
+}

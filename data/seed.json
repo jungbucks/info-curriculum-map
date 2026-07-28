@@ -1,0 +1,11 @@
+{
+  "_note": "원본 추출본. 읽기 전용 — 절대 수정 금지. 이 스켈레톤을 실제 seed.json으로 교체하세요.",
+  "_schema": {
+    "levels": "과목명 → 학교급 단계(1~4)",
+    "areas": "과목명 → [{ area_no, area, core_ideas[], elements:{ '지식·이해':[], '과정·기능':[], '가치·태도':[] } }]",
+    "standards": "[{ id, subject, level, area_no, seq, text }]"
+  },
+  "levels": {},
+  "areas": {},
+  "standards": []
+}

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>정보과 교육과정 학습 맵 — 연구 분석 도구</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="app-hd">
+  <h1>정보과 교육과정 학습 맵</h1>
+  <p class="sub">2022 개정 정보과 계열 학습 위계 · 계열성 결손 분석 (연구용)</p>
+  <nav class="tabs" role="tablist">
+    <button class="tab" role="tab" data-screen="grid" aria-selected="true">① 격자 맵</button>
+    <button class="tab" role="tab" data-screen="tag" aria-selected="false">② 인지수준 태깅</button>
+    <button class="tab" role="tab" data-screen="gaps" aria-selected="false">③ 결손 리포트</button>
+  </nav>
+</header>
+
+<main>
+  <!-- 화면 1: 격자 맵 -->
+  <section id="screen-grid" class="screen" hidden>
+    <div id="grid-map" class="grid-map"><!-- CSS Grid 셀 렌더 --></div>
+    <svg id="edge-layer" class="edge-layer"><!-- 간선 오버레이 --></svg>
+    <aside id="detail-panel" class="detail-panel" hidden><!-- 셀/노드 상세 --></aside>
+  </section>
+
+  <!-- 화면 2: 인지수준 태깅 -->
+  <section id="screen-tag" class="screen" hidden>
+    <div id="tag-list"><!-- 고유 서술어 목록 + Bloom 1~6 태깅 --></div>
+    <div id="tag-compound"><!-- 복합 서술어(수동 처리) --></div>
+  </section>
+
+  <!-- 화면 3: 결손 리포트 -->
+  <section id="screen-gaps" class="screen" hidden>
+    <div id="gaps-controls"><!-- 임계값 조정 · by_design 필터 --></div>
+    <div id="gaps-report"><!-- 판정 결과 + 근거 문자열 --></div>
+  </section>
+</main>
+
+<footer class="app-ft">
+  <button data-act="export-bloom">bloom.json 내보내기</button>
+  <button data-act="export-edges">edges.json 내보내기</button>
+  <button data-act="export-gaps">gaps.json 내보내기</button>
+  <label class="import-lbl">JSON 불러오기 <input type="file" id="import-file" accept="application/json" hidden></label>
+  <span id="status" class="status"></span>
+</footer>
+
+<script type="module" src="js/main.js"></script>
+</body>
+</html>

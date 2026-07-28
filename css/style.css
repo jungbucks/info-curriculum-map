@@ -1,0 +1,44 @@
+/* 정보과 교육과정 학습 맵 — 연구용. 꾸밈 최소, 판독성 우선.
+   애니메이션·전환·다크모드 없음(비목표). */
+
+:root {
+  --bg: #ffffff;
+  --fg: #1a1a1a;
+  --muted: #6b7280;
+  --line: #d1d5db;
+  --line-soft: #e5e7eb;
+  --cell: #f9fafb;
+  --accent: #2563eb;
+  --err: #dc2626;
+  /* 레인(영역) 색은 렌더 시 --lane-hue로 셀에 주입, 명도는 Bloom 농도 */
+  --font: -apple-system, "Pretendard", "맑은 고딕", sans-serif;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; font-family: var(--font); color: var(--fg); background: var(--bg); font-size: 15px; line-height: 1.6; }
+
+.app-hd { padding: 16px 20px; border-bottom: 1px solid var(--line); }
+.app-hd h1 { margin: 0; font-size: 20px; }
+.app-hd .sub { margin: 2px 0 12px; color: var(--muted); font-size: 13px; }
+
+.tabs { display: flex; gap: 6px; }
+.tab { padding: 7px 14px; border: 1px solid var(--line); background: var(--cell); border-radius: 6px; cursor: pointer; font-family: inherit; font-size: 14px; }
+.tab[aria-selected="true"] { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+main { padding: 20px; }
+.screen[hidden] { display: none; }
+
+/* 화면1 격자 맵 */
+#screen-grid { position: relative; }
+.grid-map { display: grid; gap: 10px; }          /* 열/행 템플릿은 렌더 시 인라인 주입 */
+.edge-layer { position: absolute; inset: 0; pointer-events: none; overflow: visible; }
+.detail-panel { margin-top: 16px; border: 1px solid var(--line); border-radius: 8px; padding: 14px; }
+
+/* 화면3 근거 테이블 */
+#gaps-report table { border-collapse: collapse; width: 100%; }
+#gaps-report th, #gaps-report td { border: 1px solid var(--line-soft); padding: 6px 9px; text-align: left; vertical-align: top; font-size: 13px; }
+
+.app-ft { display: flex; gap: 8px; align-items: center; padding: 12px 20px; border-top: 1px solid var(--line); flex-wrap: wrap; }
+.app-ft button, .import-lbl { padding: 6px 12px; border: 1px solid var(--line); background: var(--cell); border-radius: 6px; cursor: pointer; font-family: inherit; font-size: 13px; }
+.status { color: var(--muted); font-size: 13px; margin-left: auto; }
+.status.err { color: var(--err); }

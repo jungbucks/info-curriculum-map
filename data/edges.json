@@ -1,0 +1,5 @@
+{
+  "_note": "노드 간 간선. 수동 작성. kind: 'hierarchy'(위계=실선 화살표) | 'extension'(확장=점선) | 'transition'(전이=곡선).",
+  "_schema": { "from": "node id (성취기준 id 또는 cell '과목/단계')", "to": "node id", "kind": "hierarchy|extension|transition", "note": "근거(선택)" },
+  "edges": []
+}
