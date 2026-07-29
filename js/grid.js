@@ -20,7 +20,7 @@ function levelColumns() {
 }
 
 // (레인, 단계) → { areas, standards }
-function cellData(lane, level) {
+export function cellData(lane, level) {
   const { assign } = activeTrack();
   const areas = [];
   for (const [subj, arr] of Object.entries(store.seed.areas)) {

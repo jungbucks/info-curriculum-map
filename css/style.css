@@ -98,7 +98,24 @@ main { padding: 20px; }
 .bl-chip.bl5, .bl-btn.on[data-lv="5"] { background: #fb923c; }
 .bl-chip.bl6, .bl-btn.on[data-lv="6"] { background: #f87171; }
 
-/* 화면3 근거 테이블 */
+/* 화면3 결손 리포트 */
+.gap-bar { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; margin-bottom: 10px; }
+.gap-track b { font-weight: 700; }
+.gap-th { font-size: 13px; display: inline-flex; align-items: center; gap: 6px; }
+.gap-th input[type=range] { width: 140px; }
+.gap-bd { font-size: 13px; display: inline-flex; align-items: center; gap: 4px; }
+.gap-sum { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+.gap-pill { font-size: 13px; font-weight: 600; padding: 3px 10px; border-radius: 12px; border: 1px solid var(--line); }
+.gap-tag { font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; white-space: nowrap; color: #fff; }
+/* 유형 색 */
+.t-by_design .gap-tag, .gap-pill.t-by_design { background: #9ca3af; color: #fff; border-color: #9ca3af; }
+.t-stagnant .gap-tag, .gap-pill.t-stagnant { background: #f59e0b; color: #fff; border-color: #f59e0b; }
+.t-naming_mismatch .gap-tag, .gap-pill.t-naming_mismatch { background: #ef4444; color: #fff; border-color: #ef4444; }
+#gaps-report tr.t-stagnant td { background: #fffbeb; }
+#gaps-report tr.t-naming_mismatch td { background: #fef2f2; }
+#gaps-report tr.t-by_design td { background: #f9fafb; color: var(--muted); }
+
+/* 근거 테이블 */
 #gaps-report table { border-collapse: collapse; width: 100%; }
 #gaps-report th, #gaps-report td { border: 1px solid var(--line-soft); padding: 6px 9px; text-align: left; vertical-align: top; font-size: 13px; }
 
