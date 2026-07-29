@@ -34,7 +34,10 @@ function bindTabs() {
 function bindFooter() {
   const acts = { 'export-bloom': 'bloom', 'export-edges': 'edges', 'export-gaps': 'gaps' };
   document.querySelectorAll('[data-act]').forEach(b =>
-    b.addEventListener('click', () => { if (acts[b.dataset.act]) exportFile(acts[b.dataset.act]); }));
+    b.addEventListener('click', () => {
+      if (acts[b.dataset.act]) exportFile(acts[b.dataset.act]);
+      else if (b.dataset.act === 'reset') { localStorage.removeItem('infomap_v1'); location.reload(); }
+    }));
   const imp = $('#import-file');
   if (imp) imp.addEventListener('change', async () => {
     if (!imp.files[0]) return;

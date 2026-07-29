@@ -1,5 +1,19 @@
 {
-  "_note": "노드 간 간선. 수동 작성. kind: 'hierarchy'(위계=실선 화살표) | 'extension'(확장=점선) | 'transition'(전이=곡선).",
-  "_schema": { "from": "node id (성취기준 id 또는 cell '과목/단계')", "to": "node id", "kind": "hierarchy|extension|transition", "note": "근거(선택)" },
-  "edges": []
+  "_note": "노드 간 간선. 수동 작성·수정 가능. 노드=셀(레인×단계). from/to={lane, level}. 손수 편집 후 [JSON 불러오기] 또는 [파일에서 다시 로드]로 반영.",
+  "_kinds": "hierarchy=위계(실선 화살표) · extension=확장(점선) · transition=전이(곡선). 한쪽 셀이 활성 트랙에 없으면 자동으로 안 그려짐.",
+  "_seed": "아래는 초기값 — L1→L2·L2→L3 위계는 동일 영역명 기반 사실. L3→L4 확장/전이는 예시이니 연구자가 검토·수정.",
+  "edges": [
+    { "from": { "lane": "컴퓨팅 시스템", "level": 1 }, "to": { "lane": "컴퓨팅 시스템", "level": 2 }, "kind": "hierarchy", "note": "초등 정보 요소 → 중 컴퓨팅 시스템" },
+    { "from": { "lane": "데이터", "level": 1 }, "to": { "lane": "데이터", "level": 2 }, "kind": "hierarchy", "note": "초등 → 중 데이터" },
+    { "from": { "lane": "알고리즘과 프로그래밍", "level": 1 }, "to": { "lane": "알고리즘과 프로그래밍", "level": 2 }, "kind": "hierarchy", "note": "초등 → 중 알고리즘과 프로그래밍" },
+    { "from": { "lane": "인공지능", "level": 1 }, "to": { "lane": "인공지능", "level": 2 }, "kind": "hierarchy", "note": "초등 → 중 인공지능" },
+    { "from": { "lane": "컴퓨팅 시스템", "level": 2 }, "to": { "lane": "컴퓨팅 시스템", "level": 3 }, "kind": "hierarchy", "note": "중 → 고 동일 영역" },
+    { "from": { "lane": "데이터", "level": 2 }, "to": { "lane": "데이터", "level": 3 }, "kind": "hierarchy", "note": "중 → 고 동일 영역" },
+    { "from": { "lane": "알고리즘과 프로그래밍", "level": 2 }, "to": { "lane": "알고리즘과 프로그래밍", "level": 3 }, "kind": "hierarchy", "note": "중 → 고 동일 영역" },
+    { "from": { "lane": "인공지능", "level": 2 }, "to": { "lane": "인공지능", "level": 3 }, "kind": "hierarchy", "note": "중 → 고 동일 영역" },
+    { "from": { "lane": "디지털 문화", "level": 2 }, "to": { "lane": "디지털 문화", "level": 3 }, "kind": "hierarchy", "note": "중 → 고 동일 영역" },
+    { "from": { "lane": "데이터", "level": 3 }, "to": { "lane": "데이터", "level": 4 }, "kind": "extension", "note": "예시: 고 데이터 → 데이터 과학·소생(현상분석) 확장 (integrated)" },
+    { "from": { "lane": "인공지능", "level": 3 }, "to": { "lane": "인공지능", "level": 4 }, "kind": "extension", "note": "예시: 고 인공지능 → 인공지능 기초 확장 (integrated)" },
+    { "from": { "lane": "인공지능", "level": 3 }, "to": { "lane": "인공지능 기초", "level": 4 }, "kind": "transition", "note": "예시: 분리형에서 인공지능 → 인공지능 기초 전이 (separated)" }
+  ]
 }
