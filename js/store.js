@@ -8,7 +8,7 @@ const LS_KEY = 'infomap_v1';
 export const store = {
   seed:  { levels: {}, areas: {}, standards: [] },  // 읽기 전용
   lanes: { active: 'integrated', tracks: {} },       // 영역→레인 배정(투트랙)
-  bloom: { predicates: {}, compound: [] },
+  bloom: { predicates: {}, compound: {} },
   edges: { edges: [] },
   gaps:  { threshold: { naming_overlap: 0.2 }, gaps: [] },
 };
@@ -59,5 +59,15 @@ export function exportFile(kind) {
   downloadJson(`${kind}.json`, map[kind]);
 }
 
-// TODO: import — 파일 종류 판별 후 해당 파생물만 교체(seed 덮어쓰기 금지) → persist().
-export function importFile(/* file */) {}
+// import — 파일 내용 형태로 종류 판별 후 해당 파생물만 교체(seed 덮어쓰기 금지) → persist().
+export async function importFile(file) {
+  let o;
+  try { o = JSON.parse(await file.text()); } catch { return false; }
+  if (o.tracks) store.lanes = o;
+  else if (o.predicates) store.bloom = o;
+  else if (o.edges) store.edges = o;
+  else if (o.gaps || o.threshold) store.gaps = o;
+  else return false;
+  persist();
+  return true;
+}

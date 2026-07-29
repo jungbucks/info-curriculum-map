@@ -1,7 +1,7 @@
 // main.js — 진입점. 데이터 로드 → 탭 라우팅 → 화면 부팅.
 // <script type="module">로만 로드. 외부 라이브러리 없음.
 
-import { loadAll, store } from './store.js';
+import { loadAll, store, exportFile, importFile } from './store.js';
 import { renderGrid } from './grid.js';
 import { renderTagging } from './bloom.js';
 import { renderGaps } from './gaps.js';
@@ -31,6 +31,20 @@ function bindTabs() {
   window.addEventListener('hashchange', route);
 }
 
+function bindFooter() {
+  const acts = { 'export-bloom': 'bloom', 'export-edges': 'edges', 'export-gaps': 'gaps' };
+  document.querySelectorAll('[data-act]').forEach(b =>
+    b.addEventListener('click', () => { if (acts[b.dataset.act]) exportFile(acts[b.dataset.act]); }));
+  const imp = $('#import-file');
+  if (imp) imp.addEventListener('change', async () => {
+    if (!imp.files[0]) return;
+    const ok = await importFile(imp.files[0]);
+    setStatus(ok ? `불러옴: ${imp.files[0].name}` : '알 수 없는 JSON 형식', !ok);
+    imp.value = '';
+    if (ok) route();
+  });
+}
+
 function route() {
   const key = location.hash.replace(/^#/, '').split(/[=&/]/)[0];
   const name = (key === 'tag' || key === 'gaps') ? key : 'grid';  // #cell·#node → grid
@@ -42,6 +56,7 @@ async function boot() {
     await loadAll();                 // seed/bloom/edges/gaps 로드 + localStorage 병합
     setStatus(`로드 완료 · 성취기준 ${store.seed.standards.length}개`);
     bindTabs();
+    bindFooter();
     route();
   } catch (e) {
     setStatus('데이터 로드 실패: ' + e.message, true);

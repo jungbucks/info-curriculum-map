@@ -75,6 +75,29 @@ main { padding: 20px; }
 .dp-cat b { font-size: 12px; }
 .dp-stds code { background: var(--cell); border: 1px solid var(--line-soft); border-radius: 4px; padding: 0 4px; font-size: 12px; }
 
+/* 화면2 인지수준 태깅 */
+.tag-hd h2 { font-size: 17px; margin: 0 0 4px; }
+.muted { color: var(--muted); }
+.small { font-size: 12px; }
+.num { text-align: center; color: var(--muted); }
+.bloom-legend { display: flex; gap: 6px; flex-wrap: wrap; margin: 8px 0; }
+.bl-chip { font-size: 12px; padding: 2px 9px; border-radius: 10px; color: #fff; }
+.tag-prog { font-size: 13px; color: var(--muted); margin-bottom: 10px; }
+.tag-tbl { border-collapse: collapse; width: 100%; margin-bottom: 26px; }
+.tag-tbl th, .tag-tbl td { border: 1px solid var(--line-soft); padding: 6px 9px; text-align: left; vertical-align: middle; font-size: 13px; }
+.tag-tbl th { background: var(--cell); font-size: 12px; }
+.bloom-pick { display: inline-flex; gap: 3px; }
+.bl-btn { width: 26px; height: 26px; border: 1px solid var(--line); background: #fff; border-radius: 5px; cursor: pointer; font-family: inherit; font-size: 12px; color: var(--muted); }
+.bl-btn:hover { border-color: var(--fg); }
+.bl-btn.on { color: #fff; border-color: transparent; font-weight: 700; }
+/* Bloom 색: 1 기억 → 6 창안 */
+.bl-chip.bl1, .bl-btn.on[data-lv="1"] { background: #94a3b8; }
+.bl-chip.bl2, .bl-btn.on[data-lv="2"] { background: #60a5fa; }
+.bl-chip.bl3, .bl-btn.on[data-lv="3"] { background: #34d399; }
+.bl-chip.bl4, .bl-btn.on[data-lv="4"] { background: #fbbf24; }
+.bl-chip.bl5, .bl-btn.on[data-lv="5"] { background: #fb923c; }
+.bl-chip.bl6, .bl-btn.on[data-lv="6"] { background: #f87171; }
+
 /* 화면3 근거 테이블 */
 #gaps-report table { border-collapse: collapse; width: 100%; }
 #gaps-report th, #gaps-report td { border: 1px solid var(--line-soft); padding: 6px 9px; text-align: left; vertical-align: top; font-size: 13px; }

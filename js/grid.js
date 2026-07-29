@@ -4,7 +4,8 @@
 // 클릭 시 상세 패널: 핵심 아이디어 / 내용 요소 3범주 / 성취기준.
 
 import { store, activeTrack, areaKey, persist } from './store.js';
-import { $, esc, elemsByCat, catKey, PRED_RE } from './util.js';
+import { $, esc, elemsByCat, catKey } from './util.js';
+import { elementBloom } from './bloom.js';
 import { drawEdges } from './edges-svg.js';
 
 // 레인별 색상(색은 레인이 씀 — 간선은 선 모양으로 구분). separated 최대 8레인.
@@ -37,15 +38,11 @@ function cellData(lane, level) {
   return { areas, standards };
 }
 
-// 셀 Bloom 최대값(과정·기능 서술어 태깅 기준). 미태깅이면 0.
+// 셀 Bloom 최대값(과정·기능 요소 기준). 미태깅이면 0.
 function cellBloomMax(cell) {
-  const pred = store.bloom.predicates || {};
   let max = 0;
   for (const a of cell.areas)
-    for (const t of elemsByCat(a, '과정')) {
-      const m = String(t).match(PRED_RE);
-      if (m && pred[m[1]]) max = Math.max(max, pred[m[1]]);
-    }
+    for (const t of elemsByCat(a, '과정')) max = Math.max(max, elementBloom(t));
   return max;
 }
 
