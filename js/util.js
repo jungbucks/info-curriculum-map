@@ -34,5 +34,11 @@ export function catKey(area, prefix) {
   return Object.keys((area && area.elements) || {}).find(key => key.startsWith(prefix)) || prefix;
 }
 
-// 과정·기능 문장 끝 서술어 추출용.
-export const PRED_RE = /([가-힣]+하기|[가-힣]+보기)$/;
+// 내용요소 문장 → 내용어 토큰. 조사·어미 접미 제거 후 2글자↑. 투명·수정가능.
+// 계열 대조(새 용어 강조)와 결손(naming 중복률)이 공유.
+export const STOP_TERMS = new Set(['등', '및', '통한', '위한', '대한', '다양한', '실제', '기반', '관련', '중심', '적절', '수행', '과정', '방법', '문제', '해결']);
+export function terms(text) {
+  return String(text).replace(/[(),·⋅‧・/]/g, ' ').split(/\s+/)
+    .map(w => w.replace(/(하기|보기|하고|하여|으로|로써|로서|에서|에게|이나|은|는|이|가|을|를|의|에|과|와|도|만|들)$/, '').trim())
+    .filter(w => w.length >= 2 && !STOP_TERMS.has(w));
+}

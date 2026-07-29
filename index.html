@@ -12,7 +12,7 @@
   <p class="sub">2022 개정 정보과 계열 학습 위계 · 계열성 결손 분석 (연구용)</p>
   <nav class="tabs" role="tablist">
     <button class="tab" role="tab" data-screen="grid" aria-selected="true">① 격자 맵</button>
-    <button class="tab" role="tab" data-screen="tag" aria-selected="false">② 인지수준 태깅</button>
+    <button class="tab" role="tab" data-screen="contrast" aria-selected="false">② 계열 대조</button>
     <button class="tab" role="tab" data-screen="gaps" aria-selected="false">③ 결손 리포트</button>
   </nav>
 </header>
@@ -26,10 +26,10 @@
     <aside id="detail-panel" class="detail-panel" hidden><!-- 셀/노드 상세 --></aside>
   </section>
 
-  <!-- 화면 2: 인지수준 태깅 -->
-  <section id="screen-tag" class="screen" hidden>
-    <div id="tag-list"><!-- 고유 서술어 목록 + Bloom 1~6 태깅 --></div>
-    <div id="tag-compound"><!-- 복합 서술어(수동 처리) --></div>
+  <!-- 화면 2: 계열 대조 (범주×단계로 내용요소 확장 대조) -->
+  <section id="screen-contrast" class="screen" hidden>
+    <div id="contrast-controls"><!-- 레인 선택 --></div>
+    <div id="contrast-view"><!-- 3범주 × 4단계 대조표 --></div>
   </section>
 
   <!-- 화면 3: 결손 리포트 -->
@@ -40,7 +40,6 @@
 </main>
 
 <footer class="app-ft">
-  <button data-act="export-bloom">bloom.json 내보내기</button>
   <button data-act="export-edges">edges.json 내보내기</button>
   <button data-act="export-gaps">gaps.json 내보내기</button>
   <label class="import-lbl">JSON 불러오기 <input type="file" id="import-file" accept="application/json" hidden></label>

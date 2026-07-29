@@ -5,7 +5,6 @@
 
 import { store, activeTrack, areaKey, persist } from './store.js';
 import { $, esc, elemsByCat, catKey } from './util.js';
-import { elementBloom } from './bloom.js';
 import { drawEdges } from './edges-svg.js';
 
 // 레인별 색상(색은 레인이 씀 — 간선은 선 모양으로 구분). separated 최대 8레인.
@@ -36,14 +35,6 @@ export function cellData(lane, level) {
     for (const s of store.seed.standards)
       if (s.subject === a.subject && s.area_no === a.area_no) standards.push(s);
   return { areas, standards };
-}
-
-// 셀 Bloom 최대값(과정·기능 요소 기준). 미태깅이면 0.
-function cellBloomMax(cell) {
-  let max = 0;
-  for (const a of cell.areas)
-    for (const t of elemsByCat(a, '과정')) max = Math.max(max, elementBloom(t));
-  return max;
 }
 
 // ── 트랙 전환 컨트롤 ──
@@ -78,13 +69,12 @@ export function renderGrid() {
     for (const c of cols) {
       const cell = cellData(lane, c.level);
       const n = cell.standards.length;
-      const bmax = cellBloomMax(cell);
       if (!n) { html += `<div class="gm-cell empty" aria-hidden="true"></div>`; continue; }
-      html += `<div class="gm-cell" style="--hue:${hue};--dens:${bmax / 6}"
+      html += `<div class="gm-cell" style="--hue:${hue}"
         data-lane="${esc(lane)}" data-level="${c.level}" role="button" tabindex="0"
         aria-label="${esc(lane)} ${c.level}단계 · 성취기준 ${n}개">
         <span class="gm-count">${n}</span>
-        <span class="gm-meta">${cell.areas.length}영역${bmax ? ` · B${bmax}` : ''}</span>
+        <span class="gm-meta">${cell.areas.length}영역</span>
       </div>`;
     }
   });

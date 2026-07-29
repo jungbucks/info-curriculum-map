@@ -10,7 +10,7 @@
   --cell: #f9fafb;
   --accent: #2563eb;
   --err: #dc2626;
-  /* 레인(영역) 색은 렌더 시 --lane-hue로 셀에 주입, 명도는 Bloom 농도 */
+  /* 레인(영역) 색은 렌더 시 --hue로 셀에 주입 */
   --font: -apple-system, "Pretendard", "맑은 고딕", sans-serif;
 }
 
@@ -49,9 +49,8 @@ main { padding: 20px; }
   min-height: 58px; border: 1px solid var(--line-soft); border-radius: 6px; padding: 6px 8px;
   display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 2px;
   cursor: pointer;
-  /* --dens(0~1) = Bloom 최대값/6. 태깅 전엔 0 → 연한 레인 색. */
-  background: hsl(var(--hue) 55% calc(96% - var(--dens, 0) * 34%));
-  color: hsl(var(--hue) 30% calc(28% + var(--dens, 0) * 6%));
+  background: hsl(var(--hue) 50% 96%);
+  color: hsl(var(--hue) 32% 30%);
 }
 .gm-cell:hover { outline: 2px solid hsl(var(--hue) 55% 45%); }
 .gm-cell:focus-visible { outline: 2px solid var(--accent); }
@@ -75,28 +74,26 @@ main { padding: 20px; }
 .dp-cat b { font-size: 12px; }
 .dp-stds code { background: var(--cell); border: 1px solid var(--line-soft); border-radius: 4px; padding: 0 4px; font-size: 12px; }
 
-/* 화면2 인지수준 태깅 */
-.tag-hd h2 { font-size: 17px; margin: 0 0 4px; }
+/* 공용 유틸 */
 .muted { color: var(--muted); }
 .small { font-size: 12px; }
 .num { text-align: center; color: var(--muted); }
-.bloom-legend { display: flex; gap: 6px; flex-wrap: wrap; margin: 8px 0; }
-.bl-chip { font-size: 12px; padding: 2px 9px; border-radius: 10px; color: #fff; }
-.tag-prog { font-size: 13px; color: var(--muted); margin-bottom: 10px; }
-.tag-tbl { border-collapse: collapse; width: 100%; margin-bottom: 26px; }
-.tag-tbl th, .tag-tbl td { border: 1px solid var(--line-soft); padding: 6px 9px; text-align: left; vertical-align: middle; font-size: 13px; }
-.tag-tbl th { background: var(--cell); font-size: 12px; }
-.bloom-pick { display: inline-flex; gap: 3px; }
-.bl-btn { width: 26px; height: 26px; border: 1px solid var(--line); background: #fff; border-radius: 5px; cursor: pointer; font-family: inherit; font-size: 12px; color: var(--muted); }
-.bl-btn:hover { border-color: var(--fg); }
-.bl-btn.on { color: #fff; border-color: transparent; font-weight: 700; }
-/* Bloom 색: 1 기억 → 6 창안 */
-.bl-chip.bl1, .bl-btn.on[data-lv="1"] { background: #94a3b8; }
-.bl-chip.bl2, .bl-btn.on[data-lv="2"] { background: #60a5fa; }
-.bl-chip.bl3, .bl-btn.on[data-lv="3"] { background: #34d399; }
-.bl-chip.bl4, .bl-btn.on[data-lv="4"] { background: #fbbf24; }
-.bl-chip.bl5, .bl-btn.on[data-lv="5"] { background: #fb923c; }
-.bl-chip.bl6, .bl-btn.on[data-lv="6"] { background: #f87171; }
+
+/* 화면2 계열 대조표 */
+.ct-bar { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin-bottom: 6px; }
+.ct-lane { padding: 5px 12px; border: 1px solid var(--line); background: var(--cell); border-radius: 6px; cursor: pointer; font-family: inherit; font-size: 13px; }
+.ct-lane.on { background: var(--accent); color: #fff; border-color: var(--accent); }
+.ct-help { margin: 0 0 12px; }
+.ct-new-key { color: #059669; border-bottom: 2px solid #6ee7b7; font-weight: 600; }
+.ct-tbl { border-collapse: collapse; width: 100%; table-layout: fixed; }
+.ct-tbl th, .ct-tbl td { border: 1px solid var(--line-soft); padding: 8px 10px; vertical-align: top; text-align: left; }
+.ct-tbl thead th { background: var(--cell); font-size: 13px; text-align: center; }
+.ct-tbl thead th small { display: block; font-weight: 400; color: var(--muted); font-size: 11px; }
+.ct-corner { width: 88px; }
+.ct-cat { width: 88px; background: var(--cell); font-size: 13px; font-weight: 700; vertical-align: middle; text-align: center; }
+.ct-tbl td ul { margin: 0; padding-left: 16px; }
+.ct-tbl td li { margin: 3px 0; font-size: 13px; line-height: 1.5; }
+.ct-tbl td li.ct-new { color: #065f46; border-bottom: 2px solid #6ee7b7; }
 
 /* 화면3 결손 리포트 */
 .gap-bar { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; margin-bottom: 10px; }
@@ -109,9 +106,7 @@ main { padding: 20px; }
 .gap-tag { font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 4px; white-space: nowrap; color: #fff; }
 /* 유형 색 */
 .t-by_design .gap-tag, .gap-pill.t-by_design { background: #9ca3af; color: #fff; border-color: #9ca3af; }
-.t-stagnant .gap-tag, .gap-pill.t-stagnant { background: #f59e0b; color: #fff; border-color: #f59e0b; }
 .t-naming_mismatch .gap-tag, .gap-pill.t-naming_mismatch { background: #ef4444; color: #fff; border-color: #ef4444; }
-#gaps-report tr.t-stagnant td { background: #fffbeb; }
 #gaps-report tr.t-naming_mismatch td { background: #fef2f2; }
 #gaps-report tr.t-by_design td { background: #f9fafb; color: var(--muted); }
 

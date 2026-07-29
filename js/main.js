@@ -3,14 +3,14 @@
 
 import { loadAll, store, exportFile, importFile } from './store.js';
 import { renderGrid } from './grid.js';
-import { renderTagging } from './bloom.js';
+import { renderContrast } from './contrast.js';
 import { renderGaps } from './gaps.js';
 import { $, setStatus } from './util.js';
 
 const SCREENS = {
-  grid: { el: '#screen-grid', render: renderGrid },
-  tag:  { el: '#screen-tag',  render: renderTagging },
-  gaps: { el: '#screen-gaps', render: renderGaps },
+  grid:     { el: '#screen-grid',     render: renderGrid },
+  contrast: { el: '#screen-contrast', render: renderContrast },
+  gaps:     { el: '#screen-gaps',     render: renderGaps },
 };
 
 function showScreen(name) {
@@ -32,7 +32,7 @@ function bindTabs() {
 }
 
 function bindFooter() {
-  const acts = { 'export-bloom': 'bloom', 'export-edges': 'edges', 'export-gaps': 'gaps' };
+  const acts = { 'export-edges': 'edges', 'export-gaps': 'gaps' };
   document.querySelectorAll('[data-act]').forEach(b =>
     b.addEventListener('click', () => {
       if (acts[b.dataset.act]) exportFile(acts[b.dataset.act]);
@@ -50,13 +50,13 @@ function bindFooter() {
 
 function route() {
   const key = location.hash.replace(/^#/, '').split(/[=&/]/)[0];
-  const name = (key === 'tag' || key === 'gaps') ? key : 'grid';  // #cell·#node → grid
+  const name = (key === 'contrast' || key === 'gaps') ? key : 'grid';  // #cell·#node → grid
   showScreen(name);
 }
 
 async function boot() {
   try {
-    await loadAll();                 // seed/bloom/edges/gaps 로드 + localStorage 병합
+    await loadAll();                 // seed/lanes/edges/gaps 로드 + localStorage 병합
     setStatus(`로드 완료 · 성취기준 ${store.seed.standards.length}개`);
     bindTabs();
     bindFooter();
