@@ -21,8 +21,8 @@ function showScreen(name) {
   document.querySelectorAll('.tab').forEach(t =>
     t.setAttribute('aria-selected', t.dataset.screen === name));
   SCREENS[name].render();
-  // URL 해시 상태 유지 (#screen=grid, #node=..., #cell=... 은 각 화면이 확장)
-  if (!location.hash.startsWith('#' + name)) history.replaceState(null, '', '#' + name);
+  // 해시가 비었을 때만 기본값 세팅(#cell=…/#node=… 등 세부 상태는 각 화면이 관리).
+  if (!location.hash) history.replaceState(null, '', '#' + name);
 }
 
 function bindTabs() {
@@ -32,8 +32,9 @@ function bindTabs() {
 }
 
 function route() {
-  const name = (location.hash.replace(/^#/, '').split('=')[0]) || 'grid';
-  showScreen(name in SCREENS ? name : 'grid');
+  const key = location.hash.replace(/^#/, '').split(/[=&/]/)[0];
+  const name = (key === 'tag' || key === 'gaps') ? key : 'grid';  // #cell·#node → grid
+  showScreen(name);
 }
 
 async function boot() {

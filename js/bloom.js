@@ -3,8 +3,9 @@
 // 정규식으로 추출 → 고유 서술어 목록(수십 개)에만 Bloom 1~6 부여.
 
 import { store, persist } from './store.js';
+import { elemsByCat, PRED_RE } from './util.js';
 
-export const PREDICATE_RE = /([가-힣]+하기|[가-힣]+보기)$/;
+export const PREDICATE_RE = PRED_RE;
 
 // 과정·기능 요소에서 서술어 추출. 단일 서술어 → predicates 후보, 복합('~하고 ~하기') → compound.
 export function extractPredicates() {
@@ -12,7 +13,7 @@ export function extractPredicates() {
   const compound = new Set();
   for (const [subject, areas] of Object.entries(store.seed.areas || {})) {
     for (const a of areas) {
-      const items = (a.elements && a.elements['과정·기능']) || [];
+      const items = elemsByCat(a, '과정');
       for (const raw of items) {
         const t = String(raw).trim();
         // 복합 서술어 판별: 문장 안에 '하기/보기'가 여러 번, 또는 '~하고 ~하기'

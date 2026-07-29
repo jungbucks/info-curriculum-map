@@ -22,3 +22,17 @@ export function setStatus(msg, isErr = false) {
   el.textContent = msg;
   el.classList.toggle('err', isErr);
 }
+
+// 내용요소 3범주 접근. seed의 구분점 문자(·/⋅) 변형을 접두어 매칭으로 흡수.
+// prefix: '지식' | '과정' | '가치'
+export function elemsByCat(area, prefix) {
+  const el = (area && area.elements) || {};
+  const k = Object.keys(el).find(key => key.startsWith(prefix));
+  return k ? el[k] : [];
+}
+export function catKey(area, prefix) {
+  return Object.keys((area && area.elements) || {}).find(key => key.startsWith(prefix)) || prefix;
+}
+
+// 과정·기능 문장 끝 서술어 추출용.
+export const PRED_RE = /([가-힣]+하기|[가-힣]+보기)$/;

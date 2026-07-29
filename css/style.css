@@ -30,9 +30,50 @@ main { padding: 20px; }
 
 /* 화면1 격자 맵 */
 #screen-grid { position: relative; }
-.grid-map { display: grid; gap: 10px; }          /* 열/행 템플릿은 렌더 시 인라인 주입 */
+
+.grid-controls { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
+.gc-label { font-size: 13px; color: var(--muted); }
+.gc-track { padding: 5px 12px; border: 1px solid var(--line); background: var(--cell); border-radius: 6px; cursor: pointer; font-family: inherit; font-size: 13px; }
+.gc-track.on { background: var(--accent); color: #fff; border-color: var(--accent); }
+.gc-hint { font-size: 12px; color: var(--muted); }
+
+.grid-map { display: grid; gap: 8px; align-items: stretch; }   /* 열/행 템플릿은 렌더 시 인라인 주입 */
+.gm-corner { font-size: 11px; color: var(--muted); align-self: end; padding-bottom: 4px; }
+.gm-colhd { font-size: 13px; font-weight: 600; text-align: center; padding: 6px 4px; border-bottom: 2px solid var(--line); }
+.gm-colhd small { display: block; font-weight: 400; color: var(--muted); font-size: 11px; }
+.gm-lanehd {
+  font-size: 13px; font-weight: 600; display: flex; align-items: center; padding: 8px 10px;
+  border-left: 4px solid hsl(var(--hue) 55% 50%); background: hsl(var(--hue) 45% 97%); border-radius: 4px;
+}
+.gm-cell {
+  min-height: 58px; border: 1px solid var(--line-soft); border-radius: 6px; padding: 6px 8px;
+  display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 2px;
+  cursor: pointer;
+  /* --dens(0~1) = Bloom 최대값/6. 태깅 전엔 0 → 연한 레인 색. */
+  background: hsl(var(--hue) 55% calc(96% - var(--dens, 0) * 34%));
+  color: hsl(var(--hue) 30% calc(28% + var(--dens, 0) * 6%));
+}
+.gm-cell:hover { outline: 2px solid hsl(var(--hue) 55% 45%); }
+.gm-cell:focus-visible { outline: 2px solid var(--accent); }
+.gm-cell .gm-count { font-size: 20px; font-weight: 700; line-height: 1; }
+.gm-cell .gm-meta { font-size: 11px; opacity: .8; }
+.gm-cell.empty { background: repeating-linear-gradient(45deg, #fafafa, #fafafa 6px, #f3f4f6 6px, #f3f4f6 12px); border-style: dashed; cursor: default; min-height: 58px; }
+
 .edge-layer { position: absolute; inset: 0; pointer-events: none; overflow: visible; }
-.detail-panel { margin-top: 16px; border: 1px solid var(--line); border-radius: 8px; padding: 14px; }
+
+.detail-panel { margin-top: 18px; border: 1px solid var(--line); border-radius: 8px; padding: 0 16px 16px; }
+.dp-hd { position: sticky; top: 0; background: var(--bg); display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--line-soft); }
+.dp-hd em { color: var(--muted); font-style: normal; font-size: 13px; margin-left: 6px; }
+.dp-close { border: 1px solid var(--line); background: var(--cell); border-radius: 6px; cursor: pointer; padding: 3px 9px; font-size: 14px; }
+.dp-area { padding: 12px 0; border-bottom: 1px solid var(--line-soft); }
+.dp-area h3 { margin: 0 0 6px; font-size: 15px; }
+.dp-area h3 span { font-weight: 400; color: var(--muted); }
+.dp-sub { font-size: 12px; font-weight: 700; color: var(--muted); margin: 10px 0 3px; }
+.dp-area ul { margin: 0; padding-left: 18px; }
+.dp-area li { margin: 2px 0; font-size: 14px; }
+.dp-cats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.dp-cat b { font-size: 12px; }
+.dp-stds code { background: var(--cell); border: 1px solid var(--line-soft); border-radius: 4px; padding: 0 4px; font-size: 12px; }
 
 /* 화면3 근거 테이블 */
 #gaps-report table { border-collapse: collapse; width: 100%; }
