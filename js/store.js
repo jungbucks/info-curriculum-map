@@ -8,6 +8,7 @@ const LS_KEY = 'infomap_v1';
 export const store = {
   seed:  { levels: {}, areas: {}, standards: [] },  // 읽기 전용
   lanes: { active: 'integrated', tracks: {} },       // 영역→레인 배정(투트랙)
+  depth: { predicates: {} },                          // 서술어→심화(깊이) 사전(config)
   edges: { edges: [] },
   gaps:  { threshold: { naming_overlap: 0.2 }, gaps: [] },
 };
@@ -28,10 +29,12 @@ async function fetchJson(path) {
 // seed는 항상 파일에서. 파생물은 localStorage 우선, 없으면 파일 기본값.
 export async function loadAll() {
   store.seed = await fetchJson('data/seed.json');
-  const [lanes, edges, gaps] = await Promise.all([
-    fetchJson('data/lanes.json'), fetchJson('data/edges.json'), fetchJson('data/gaps.json'),
+  const [lanes, depth, edges, gaps] = await Promise.all([
+    fetchJson('data/lanes.json'), fetchJson('data/depth.json'),
+    fetchJson('data/edges.json'), fetchJson('data/gaps.json'),
   ]);
-  store.lanes = lanes; store.edges = edges; store.gaps = gaps;
+  store.lanes = lanes; store.depth = depth; store.edges = edges; store.gaps = gaps;
+  // depth는 config(파일 직접 편집) — localStorage 병합·persist 안 함.
 
   const saved = localStorage.getItem(LS_KEY);
   if (saved) {

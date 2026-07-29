@@ -114,6 +114,20 @@ main { padding: 20px; }
 #gaps-report table { border-collapse: collapse; width: 100%; }
 #gaps-report th, #gaps-report td { border: 1px solid var(--line-soft); padding: 6px 9px; text-align: left; vertical-align: top; font-size: 13px; }
 
+/* 화면4 나선형 분석 */
+.sp-bar { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; margin-bottom: 10px; }
+.sp-tbl { border-collapse: collapse; width: 100%; }
+.sp-tbl th, .sp-tbl td { border: 1px solid var(--line-soft); padding: 7px 10px; text-align: left; font-size: 13px; vertical-align: middle; }
+.sp-tbl th { background: var(--cell); font-size: 12px; }
+.sp-tag { font-size: 12px; font-weight: 600; padding: 2px 9px; border-radius: 5px; white-space: nowrap; }
+.gap-pill.sp-spiral, .sp-tag.sp-spiral { background: #ecfdf5; color: #065f46; border: 1px solid #6ee7b7; }
+.gap-pill.sp-repeat, .sp-tag.sp-repeat { background: #fffbeb; color: #92400e; border: 1px solid #fcd34d; }
+.gap-pill.sp-once,   .sp-tag.sp-once   { background: #eff6ff; color: #1e40af; border: 1px solid #93c5fd; }
+.gap-pill.sp-broken, .sp-tag.sp-broken { background: #f3f4f6; color: #6b7280; border: 1px solid #d1d5db; }
+#spiral-view tr.sp-spiral td { background: #f0fdf4; }
+.sp-up { color: #059669; }
+.sp-down { color: #dc2626; }
+
 .app-ft { display: flex; gap: 8px; align-items: center; padding: 12px 20px; border-top: 1px solid var(--line); flex-wrap: wrap; }
 .app-ft button, .import-lbl { padding: 6px 12px; border: 1px solid var(--line); background: var(--cell); border-radius: 6px; cursor: pointer; font-family: inherit; font-size: 13px; }
 .status { color: var(--muted); font-size: 13px; margin-left: auto; }

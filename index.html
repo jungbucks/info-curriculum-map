@@ -14,6 +14,7 @@
     <button class="tab" role="tab" data-screen="grid" aria-selected="true">① 격자 맵</button>
     <button class="tab" role="tab" data-screen="contrast" aria-selected="false">② 계열 대조</button>
     <button class="tab" role="tab" data-screen="gaps" aria-selected="false">③ 결손 리포트</button>
+    <button class="tab" role="tab" data-screen="spiral" aria-selected="false">④ 나선형 분석</button>
   </nav>
 </header>
 
@@ -36,6 +37,12 @@
   <section id="screen-gaps" class="screen" hidden>
     <div id="gaps-controls"><!-- 임계값 조정 · by_design 필터 --></div>
     <div id="gaps-report"><!-- 판정 결과 + 근거 문자열 --></div>
+  </section>
+
+  <!-- 화면 4: 나선형 분석 (반복 + 심화) -->
+  <section id="screen-spiral" class="screen" hidden>
+    <div id="spiral-controls"><!-- 임계값 · 요약 --></div>
+    <div id="spiral-view"><!-- 레인별 나선 판정 + 근거 --></div>
   </section>
 </main>
 

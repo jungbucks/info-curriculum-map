@@ -42,3 +42,6 @@ export function terms(text) {
     .map(w => w.replace(/(하기|보기|하고|하여|으로|로써|로서|에서|에게|이나|은|는|이|가|을|를|의|에|과|와|도|만|들)$/, '').trim())
     .filter(w => w.length >= 2 && !STOP_TERMS.has(w));
 }
+
+// 과정·기능 문장 끝 서술어 추출용(심화 depth 산출에 사용).
+export const PRED_RE = /([가-힣]+하기|[가-힣]+보기)$/;

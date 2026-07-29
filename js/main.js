@@ -5,12 +5,14 @@ import { loadAll, store, exportFile, importFile } from './store.js';
 import { renderGrid } from './grid.js';
 import { renderContrast } from './contrast.js';
 import { renderGaps } from './gaps.js';
+import { renderSpiral } from './spiral.js';
 import { $, setStatus } from './util.js';
 
 const SCREENS = {
   grid:     { el: '#screen-grid',     render: renderGrid },
   contrast: { el: '#screen-contrast', render: renderContrast },
   gaps:     { el: '#screen-gaps',     render: renderGaps },
+  spiral:   { el: '#screen-spiral',   render: renderSpiral },
 };
 
 function showScreen(name) {
@@ -50,7 +52,7 @@ function bindFooter() {
 
 function route() {
   const key = location.hash.replace(/^#/, '').split(/[=&/]/)[0];
-  const name = (key === 'contrast' || key === 'gaps') ? key : 'grid';  // #cell·#node → grid
+  const name = ['contrast', 'gaps', 'spiral'].includes(key) ? key : 'grid';  // #cell·#node → grid
   showScreen(name);
 }
 
