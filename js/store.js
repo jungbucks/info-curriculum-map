@@ -7,10 +7,18 @@ const LS_KEY = 'infomap_v1';
 
 export const store = {
   seed:  { levels: {}, areas: {}, standards: [] },  // 읽기 전용
+  lanes: { active: 'integrated', tracks: {} },       // 영역→레인 배정(투트랙)
   bloom: { predicates: {}, compound: [] },
   edges: { edges: [] },
   gaps:  { threshold: { naming_overlap: 0.2 }, gaps: [] },
 };
+
+// 현재 활성 트랙(레인 목록 + 배정). grid/gaps가 사용.
+export function activeTrack() {
+  return store.lanes.tracks[store.lanes.active] || { lanes: [], assign: {} };
+}
+// 영역 키 규약: '<과목명>#<area_no>'
+export const areaKey = (subject, area_no) => `${subject}#${area_no}`;
 
 async function fetchJson(path) {
   const res = await fetch(path, { cache: 'no-store' });
@@ -21,15 +29,17 @@ async function fetchJson(path) {
 // seed는 항상 파일에서. 파생물은 localStorage 우선, 없으면 파일 기본값.
 export async function loadAll() {
   store.seed = await fetchJson('data/seed.json');
-  const [bloom, edges, gaps] = await Promise.all([
-    fetchJson('data/bloom.json'), fetchJson('data/edges.json'), fetchJson('data/gaps.json'),
+  const [lanes, bloom, edges, gaps] = await Promise.all([
+    fetchJson('data/lanes.json'), fetchJson('data/bloom.json'),
+    fetchJson('data/edges.json'), fetchJson('data/gaps.json'),
   ]);
-  store.bloom = bloom; store.edges = edges; store.gaps = gaps;
+  store.lanes = lanes; store.bloom = bloom; store.edges = edges; store.gaps = gaps;
 
   const saved = localStorage.getItem(LS_KEY);
   if (saved) {
     try {
       const o = JSON.parse(saved);
+      if (o.lanes) store.lanes = o.lanes;
       if (o.bloom) store.bloom = o.bloom;
       if (o.edges) store.edges = o.edges;
       if (o.gaps)  store.gaps = o.gaps;
@@ -39,12 +49,12 @@ export async function loadAll() {
 
 export function persist() {
   localStorage.setItem(LS_KEY, JSON.stringify({
-    bloom: store.bloom, edges: store.edges, gaps: store.gaps,
+    lanes: store.lanes, bloom: store.bloom, edges: store.edges, gaps: store.gaps,
   }));
 }
 
 export function exportFile(kind) {
-  const map = { bloom: store.bloom, edges: store.edges, gaps: store.gaps };
+  const map = { lanes: store.lanes, bloom: store.bloom, edges: store.edges, gaps: store.gaps };
   if (!map[kind]) return;
   downloadJson(`${kind}.json`, map[kind]);
 }
