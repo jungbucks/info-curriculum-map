@@ -1,7 +1,7 @@
 // store.js — 데이터 로드 + 상태 + 영속화(localStorage) + JSON export/import.
 // 원칙: seed.json은 읽기 전용. 파생물(lanes/edges/gaps)만 수정·저장.
 
-import { downloadJson } from './util.js';
+import { downloadJson, elemsByCat } from './util.js';
 
 const LS_KEY = 'infomap_v1';
 
@@ -19,6 +19,15 @@ export function activeTrack() {
 }
 // 영역 키 규약: '<과목명>#<area_no>'
 export const areaKey = (subject, area_no) => `${subject}#${area_no}`;
+
+// 영역의 특정 범주 내용요소를, 계열(lane)로 분해(split)된 경우 그 계열 것만 반환.
+// split 없는 영역은 전체 반환(기존 동작). area는 subject·area_no·elements를 가진 객체(cellData 결과).
+export function elementsInLane(area, catPrefix, lane) {
+  const els = elemsByCat(area, catPrefix);
+  const split = (store.lanes.splits || {})[`${area.subject}#${area.area_no}`];
+  if (!split) return els;
+  return els.filter(el => (split[el] || []).includes(lane));
+}
 
 async function fetchJson(path) {
   const res = await fetch(path, { cache: 'no-store' });

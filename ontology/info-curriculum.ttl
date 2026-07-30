@@ -79,7 +79,7 @@ ic:SUBJ_데이터_과학 a ic:Subject ; rdfs:label "데이터 과학"@ko ; ic:at
 ic:SUBJ_소프트웨어와_생활 a ic:Subject ; rdfs:label "소프트웨어와 생활"@ko ; ic:atSchoolLevel ic:Level4 .
 
 # 영역 · 핵심아이디어 · 내용요소
-ic:AREA_초등_실과정보_5 a ic:Area ; rdfs:label "디지털 사회와 인공지능"@ko ; ic:areaNo 5 ; ic:areaOf ic:SUBJ_초등_실과정보 ; ic:atSchoolLevel ic:Level1 ; ic:belongsToStrand ic:CONCEPT_컴퓨팅_시스템, ic:CONCEPT_데이터, ic:CONCEPT_알고리즘과_프로그래밍, ic:CONCEPT_인공지능 .
+ic:AREA_초등_실과정보_5 a ic:Area ; rdfs:label "디지털 사회와 인공지능"@ko ; ic:areaNo 5 ; ic:areaOf ic:SUBJ_초등_실과정보 ; ic:atSchoolLevel ic:Level1 ; ic:belongsToStrand ic:CONCEPT_컴퓨팅_시스템, ic:CONCEPT_데이터, ic:CONCEPT_알고리즘과_프로그래밍, ic:CONCEPT_인공지능, ic:CONCEPT_디지털_문화 .
 ic:CI_초등_실과정보_5_1 a ic:CoreIdea ; rdfs:label "프로그래밍은 디지털 사회에서 발생하는 다양한 문제를 해결하는 데 도움을 준다."@ko ; ic:hasText "프로그래밍은 디지털 사회에서 발생하는 다양한 문제를 해결하는 데 도움을 준다."@ko .
 ic:AREA_초등_실과정보_5 ic:hasCoreIdea ic:CI_초등_실과정보_5_1 .
 ic:CI_초등_실과정보_5_2 a ic:CoreIdea ; rdfs:label "컴퓨터로 처리할 수 있는 데이터는 디지털 데이터이며, 문제 해결을 위한 명령은 명확한 절차가 필요하다."@ko ; ic:hasText "컴퓨터로 처리할 수 있는 데이터는 디지털 데이터이며, 문제 해결을 위한 명령은 명확한 절차가 필요하다."@ko .
@@ -869,6 +869,7 @@ ic:SN_인공지능_L1 a ic:StrandNode ; rdfs:label "인공지능 · 초등 실�
 ic:SN_인공지능_L2 a ic:StrandNode ; rdfs:label "인공지능 · 중학교 정보"@ko ; ic:belongsToStrand ic:CONCEPT_인공지능 ; ic:atSchoolLevel ic:Level2 ; ic:coversArea ic:AREA_중학교_정보_4 .
 ic:SN_인공지능_L3 a ic:StrandNode ; rdfs:label "인공지능 · 고등 정보"@ko ; ic:belongsToStrand ic:CONCEPT_인공지능 ; ic:atSchoolLevel ic:Level3 ; ic:coversArea ic:AREA_고등_정보_4 .
 ic:SN_인공지능_L4 a ic:StrandNode ; rdfs:label "인공지능 · 진로·융합선택"@ko ; ic:belongsToStrand ic:CONCEPT_인공지능 ; ic:atSchoolLevel ic:Level4 ; ic:coversArea ic:AREA_인공지능_기초_1, ic:AREA_인공지능_기초_2, ic:AREA_인공지능_기초_3, ic:AREA_인공지능_기초_4 .
+ic:SN_디지털_문화_L1 a ic:StrandNode ; rdfs:label "디지털 문화 · 초등 실과"@ko ; ic:belongsToStrand ic:CONCEPT_디지털_문화 ; ic:atSchoolLevel ic:Level1 ; ic:coversArea ic:AREA_초등_실과정보_5 .
 ic:SN_디지털_문화_L2 a ic:StrandNode ; rdfs:label "디지털 문화 · 중학교 정보"@ko ; ic:belongsToStrand ic:CONCEPT_디지털_문화 ; ic:atSchoolLevel ic:Level2 ; ic:coversArea ic:AREA_중학교_정보_5 .
 ic:SN_디지털_문화_L3 a ic:StrandNode ; rdfs:label "디지털 문화 · 고등 정보"@ko ; ic:belongsToStrand ic:CONCEPT_디지털_문화 ; ic:atSchoolLevel ic:Level3 ; ic:coversArea ic:AREA_고등_정보_5 .
 ic:SN_디지털_문화_L4 a ic:StrandNode ; rdfs:label "디지털 문화 · 진로·융합선택"@ko ; ic:belongsToStrand ic:CONCEPT_디지털_문화 ; ic:atSchoolLevel ic:Level4 ; ic:coversArea ic:AREA_소프트웨어와_생활_1, ic:AREA_소프트웨어와_생활_5 .

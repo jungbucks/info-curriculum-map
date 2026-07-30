@@ -3,8 +3,8 @@
 // 셀 = DOM 요소. 셀에 성취기준 개수 + (태깅되면) 인지수준 색 농도.
 // 클릭 시 상세 패널: 핵심 아이디어 / 내용 요소 3범주 / 성취기준.
 
-import { store, activeTrack, areaKey, persist } from './store.js';
-import { $, esc, elemsByCat, catKey } from './util.js';
+import { store, activeTrack, areaKey, persist, elementsInLane } from './store.js';
+import { $, esc, catKey } from './util.js';
 import { drawEdges } from './edges-svg.js';
 
 // 레인별 색상(색은 레인이 씀 — 간선은 선 모양으로 구분). separated 최대 8레인.
@@ -111,7 +111,7 @@ function openDetail(lane, level) {
       <ul>${(a.core_ideas || []).map(c => `<li>${esc(c)}</li>`).join('')}</ul>
       <div class="dp-sub">내용 요소</div>
       <div class="dp-cats">${['지식', '과정', '가치'].map(pfx =>
-        `<div class="dp-cat"><b>${esc(catKey(a, pfx))}</b><ul>${elemsByCat(a, pfx).map(x => `<li>${esc(x)}</li>`).join('')}</ul></div>`
+        `<div class="dp-cat"><b>${esc(catKey(a, pfx))}</b><ul>${elementsInLane(a, pfx, lane).map(x => `<li>${esc(x)}</li>`).join('')}</ul></div>`
       ).join('')}</div>
       <div class="dp-sub">성취기준 ${stds.length}</div>
       <ul class="dp-stds">${stds.map(s => `<li><code>${esc(s.id)}</code> ${esc(s.text)}</li>`).join('')}</ul>

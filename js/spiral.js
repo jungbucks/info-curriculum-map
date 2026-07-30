@@ -4,8 +4,8 @@
 //   심화  : 단계별 depth 최대값(과정·기능 서술어 → depth.json 자동 사전). 순증가면 심화.
 //   판정  : 재출현<2단계=단발 / 반복<임계=단절 / 심화(마지막>처음)=🌀나선형 / 그 외=🔁반복(제자리)
 
-import { store, activeTrack } from './store.js';
-import { $, esc, elemsByCat, terms, PRED_RE } from './util.js';
+import { store, activeTrack, elementsInLane } from './store.js';
+import { $, esc, terms, PRED_RE } from './util.js';
 import { cellData } from './grid.js';
 
 const LEVEL_LABEL = { 1: '초등', 2: '중', 3: '고', 4: '진로' };
@@ -24,7 +24,7 @@ const presentLevels = (lane, lvs) => lvs.filter(lv => cellData(lane, lv).standar
 function cellTerms(lane, level) {
   const { areas } = cellData(lane, level);
   const set = new Set();
-  for (const a of areas) for (const cat of ['지식', '과정', '가치']) for (const el of elemsByCat(a, cat)) terms(el).forEach(t => set.add(t));
+  for (const a of areas) for (const cat of ['지식', '과정', '가치']) for (const el of elementsInLane(a, cat, lane)) terms(el).forEach(t => set.add(t));
   return set;
 }
 // 단계 depth = 과정·기능 요소 끝 서술어의 depth 최대값(0 = 미상).
@@ -32,7 +32,7 @@ function cellDepth(lane, level) {
   const dict = store.depth.predicates || {};
   const { areas } = cellData(lane, level);
   let max = 0;
-  for (const a of areas) for (const el of elemsByCat(a, '과정')) {
+  for (const a of areas) for (const el of elementsInLane(a, '과정', lane)) {
     const m = String(el).match(PRED_RE);
     if (m && dict[m[1]] != null) max = Math.max(max, dict[m[1]]);
   }

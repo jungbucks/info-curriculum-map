@@ -5,8 +5,8 @@
 // 임계값(naming_overlap) UI 조정 → 즉시 재계산. by_design 기본 제외. gaps.json export.
 // (stagnant는 사용자 결정으로 제거 — 인지수준 축을 안 씀.)
 
-import { store, activeTrack, persist } from './store.js';
-import { $, esc, elemsByCat, terms } from './util.js';
+import { store, activeTrack, persist, elementsInLane } from './store.js';
+import { $, esc, terms } from './util.js';
 import { cellData } from './grid.js';
 
 const LEVEL_LABEL = { 1: '초등 실과', 2: '중학교 정보', 3: '고등 정보', 4: '진로·융합선택' };
@@ -15,7 +15,7 @@ const TYPE_LABEL = { by_design: '편제 없음', naming_mismatch: '용어 불일
 function cellTerms(lane, level) {
   const { areas } = cellData(lane, level);
   const set = new Set();
-  for (const a of areas) for (const cat of ['지식', '과정', '가치']) for (const el of elemsByCat(a, cat)) terms(el).forEach(t => set.add(t));
+  for (const a of areas) for (const cat of ['지식', '과정', '가치']) for (const el of elementsInLane(a, cat, lane)) terms(el).forEach(t => set.add(t));
   return set;
 }
 const levelsAll = () => [...new Set(Object.values(store.seed.levels))].sort((a, b) => a - b);

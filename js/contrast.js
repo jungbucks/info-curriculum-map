@@ -3,8 +3,8 @@
 // "지식이 초등→진로로 어떻게 확장되는가"를 왼→오로 대조한다.
 // 직전 단계까지 없던 용어를 가진 요소는 '새 요소'로 강조.
 
-import { store, activeTrack } from './store.js';
-import { $, esc, elemsByCat, terms } from './util.js';
+import { store, activeTrack, elementsInLane } from './store.js';
+import { $, esc, terms } from './util.js';
 import { cellData } from './grid.js';
 
 const CATS = [
@@ -44,7 +44,7 @@ export function renderContrast() {
     for (const lv of lvs) {
       const { areas } = cellData(_lane, lv);
       const els = [];
-      for (const a of areas) for (const el of elemsByCat(a, cat.key)) els.push(el);
+      for (const a of areas) for (const el of elementsInLane(a, cat.key, _lane)) els.push(el);
 
       const lis = els.map(el => {
         const tks = terms(el);
